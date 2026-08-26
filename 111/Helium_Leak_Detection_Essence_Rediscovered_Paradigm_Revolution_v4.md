@@ -1,15 +1,10 @@
 ---
 
-**TECHNICAL WHITE PAPER**
-
-# Helium Leak Detection: An Essence Rediscovered, Comparing Leak Apertures — Three-Piece Verification and the Helium Reduction Paradigm Revolution
-
-*Based on First Principles: Verification Determines Reliability, 10–100× Helium Reduction Is Merely a Side Effect*
-
-**Shanghai RMI Instrument Co., Ltd.**
-RealMeter Instruments (Shanghai)
-V4.0 Final · Ten Chapters · July 2026
-
+title: "Helium Leak Detection: An Essence Rediscovered, Comparing Leak Apertures – Three-Piece Verification and the Helium Reduction"
+subtitle: "Based on First Principles: Verification Determines Reliability, 10-100× Helium Reduction Is Merely a Side Effect"
+author: "Shanghai RMI Instrument Co., Ltd. (RealMeter Instruments)"
+date: "July 2026"
+version: "V4.0 Final"
 ---
 
 
