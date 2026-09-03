@@ -1,0 +1,538 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<title>R134a ↔ N2/H2 Leak Rate Equivalence Calculation</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+<style>
+body{margin:0;padding:0;font-family:Georgia,"Noto Serif SC",serif;color:#333;line-height:1.65;
+ font-size:11pt;text-align:justify;text-align-last:left;string-set:doctitle "";}
+@page{size:A4;margin:2.5cm 2cm;@top-center{content:string(doctitle);font-size:9pt;color:#666;}
+ @bottom-center{content:counter(page);font-size:9pt;color:#666;}}
+@page:first{margin:0;@top-center{content:none;}@bottom-center{content:none;}}
+@page cover{margin:0;@top-center{content:none;}@bottom-center{content:none;}}
+@page toc{@top-center{content:none;}@bottom-center{content:none;}}
+.cover{page:cover;width:210mm;height:296mm;margin:0;position:relative;overflow:hidden;
+ page-break-after:always;background:linear-gradient(160deg,#0d1b2e 0%,#16324f 55%,#1f4e79 100%);}
+.cov-grid{position:absolute;top:0;left:0;width:100%;height:100%;
+ background-image:linear-gradient(rgba(255,255,255,.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.05) 1px,transparent 1px);
+ background-size:12mm 12mm;}
+.cov-bar-t{position:absolute;top:14mm;left:0;width:64mm;height:2.5mm;background:#2e86c1;}
+.cov-bar-b{position:absolute;bottom:14mm;right:0;width:96mm;height:2.5mm;background:#b9770e;}
+.cov-block1{position:absolute;top:14mm;right:18mm;width:16mm;height:16mm;border:1.2mm solid rgba(46,134,193,.7);}
+.cov-block2{position:absolute;bottom:14mm;left:18mm;width:10mm;height:10mm;background:rgba(185,119,14,.85);}
+.cov-corner{position:absolute;bottom:36mm;right:-30mm;width:120mm;height:120mm;border-radius:50%;
+ background:radial-gradient(circle,rgba(46,134,193,.28),transparent 65%);}
+.cov-content{position:absolute;top:52mm;left:20mm;right:20mm;color:#fff;}
+.cov-brand{font-size:12pt;letter-spacing:2px;color:#9fc5e8;font-weight:bold;}
+.cov-rule{width:34mm;height:1mm;background:#2e86c1;margin:7mm 0 9mm;}
+.cov-kicker{font-size:10.5pt;color:#bdd7ee;letter-spacing:1px;margin-bottom:6mm;}
+.cov-title{font-size:23pt;line-height:1.45;margin:0 0 7mm;color:#fff;text-align:left;border:none;padding:0;}
+.cov-sub{font-size:11pt;color:#d6e4f0;margin-bottom:12mm;}
+.cov-fig{display:flex;align-items:center;gap:5mm;background:rgba(255,255,255,.07);
+ border-left:1.5mm solid #2e86c1;padding:6mm 7mm;}
+.cov-num{font-size:12.5pt;font-weight:bold;color:#fff;}
+.cov-num.acc{color:#7ec3f0;} .cov-num.gold{color:#f0c878;}
+.cov-arrow{color:#5b8db8;font-size:13pt;}
+.cov-cap{font-size:9.5pt;color:#9fc5e8;margin-top:4mm;}
+.cov-meta{position:absolute;top:195mm;font-size:10pt;color:#bdd7ee;letter-spacing:1px;}
+.toc-page{page:toc;page-break-after:always;padding-top:10mm;}
+.toc-h{font-size:17pt;color:#1f4e79;border-left:4px solid #1f4e79;padding-left:.5em;}
+.toc-item{display:flex;align-items:baseline;font-size:11.5pt;margin:.55em 0;}
+.toc-item a{text-decoration:none;color:#333;}
+.dots{flex:1;border-bottom:1px dotted #999;margin:0 .4em .2em;}
+.pgno{color:#555;}
+h1{string-set:doctitle content();}
+h2{font-size:15pt;color:#1f4e79;border-left:4px solid #1f4e79;padding-left:.5em;margin-top:1.6em;page-break-after:avoid;}
+h3{font-size:12.5pt;color:#2e5f8a;page-break-after:avoid;}
+table{border-collapse:collapse;width:100%;max-width:100%;margin:1em 0;font-size:10pt;
+ border-top:2px solid #333;border-bottom:2px solid #333;}
+thead{border-bottom:1.5px solid #333;display:table-header-group;}
+th,td{padding:.35em .6em;text-align:left;}
+img{max-width:100%;display:block;margin:.8em auto;}
+figure,table{page-break-inside:avoid;} tr{page-break-inside:avoid;}
+sup{color:#1f4e79;} strong{color:#000;}
+hr{border:none;border-top:1px solid #ccc;margin:1.5em 0;}
+</style></head><body>
+<div class="cover">
+  <div class="cov-grid"></div>
+  <div class="cov-bar-t"></div><div class="cov-bar-b"></div>
+  <div class="cov-block1"></div><div class="cov-block2"></div>
+  <div class="cov-corner"></div>
+  <div class="cov-content">
+    <div class="cov-brand">REALMETER TECHNICAL SERIES</div>
+    <div class="cov-rule"></div>
+    <div class="cov-kicker">Technical Calculation · RM-CAL-2026-0731-EN</div>
+    <h1 class="cov-title">R134a Refrigerant Annual Leakage<br>↔ N₂/H₂ Tracer-Gas Leak Rate<br>Equivalence Calculation</h1>
+    <div class="cov-sub">5%H₂/95%N₂ tracer gas · Gas-/liquid-phase dual-mode derivation (equal pressure 10 bar(g))</div>
+    <div class="cov-fig">
+      <span class="cov-num">7.6×10⁻⁶</span><span class="cov-arrow">⟶</span>
+      <span class="cov-num acc">5.22×10⁻⁶ / 1.75×10⁻⁶</span><span class="cov-arrow">⟶</span>
+      <span class="cov-num gold">Limit ≈ 1.8×10⁻⁶ mbar·L/s</span>
+    </div>
+    <div class="cov-cap">Industry-customary value → rigorous two-step values → min-rule guaranteeing limit</div>
+    <div class="cov-meta">Shanghai Realmeter Instrument Co., Ltd. · Xie Fangping · 2026-07-31 · V1.0</div>
+  </div>
+</div>
+<div class="toc-page">
+  <h2 class="toc-h">Contents</h2>
+  <div class="toc-item"><a href="#sec1">1 Task Statement and Boundary Conditions</a><span class="dots"></span><span class="pgno">3</span></div><div class="toc-item"><a href="#sec2">2 Physical Properties and Data Sources</a><span class="dots"></span><span class="pgno">4</span></div><div class="toc-item"><a href="#sec3">3 Theoretical Model</a><span class="dots"></span><span class="pgno">5</span></div><div class="toc-item"><a href="#sec4">4 Calculation Procedure</a><span class="dots"></span><span class="pgno">7</span></div><div class="toc-item"><a href="#sec5">5 Results Summary and Discussion</a><span class="dots"></span><span class="pgno">10</span></div><div class="toc-item"><a href="#sec6">6 Leak-Test System Design Recommendations</a><span class="dots"></span><span class="pgno">12</span></div><div class="toc-item"><a href="#sec7">7 Uncertainty Analysis</a><span class="dots"></span><span class="pgno">13</span></div><div class="toc-item"><a href="#sec8">8 Conclusions: The Theoretical Position of the Industry-Customary Value and Its Usability Boundary</a><span class="dots"></span><span class="pgno">13</span></div><div class="toc-item"><a href="#sec9">Appendix A Symbols</a><span class="dots"></span><span class="pgno">15</span></div><div class="toc-item"><a href="#sec10">Appendix B References</a><span class="dots"></span><span class="pgno">15</span></div>
+</div>
+<h1 style="position:absolute;left:-9999px;top:0;">R134a ↔ N₂/H₂ Leak Rate Equivalence Calculation</h1><table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Document No.</td>
+<td>RM-CAL-2026-0731-EN</td>
+</tr>
+<tr>
+<td>Version</td>
+<td>V1.0</td>
+</tr>
+<tr>
+<td>Date</td>
+<td>2026-07-31</td>
+</tr>
+<tr>
+<td>Prepared by</td>
+<td>Shanghai Realmeter Instrument Co., Ltd.</td>
+</tr>
+<tr>
+<td>Author</td>
+<td>Xie Fangping</td>
+</tr>
+<tr>
+<td>Purpose</td>
+<td>Theoretical basis for limit setting and instrument configuration of N₂/H₂ tracer-gas leak testing (equal pressure 10 bar(g)) for R134a systems</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sec1">1 Task Statement and Boundary Conditions</h2>
+<p><strong>Task</strong>: Convert the R134a annual leakage <strong>1 g/year @ 10 bar(g)</strong> into the equivalent leak rate (mbar·L/s) for hydrogen-nitrogen tracer gas (5% H₂ + 95% N₂, non-flammable safe concentration), with the <strong>tracer gas charged at the same pressure as the refrigerant duty (10 bar(g))</strong>, computed separately for gas-phase and liquid-phase leak modes.</p>
+<table>
+<thead>
+<tr>
+<th>No.</th>
+<th>Boundary condition</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BC-1</td>
+<td>Pressure reference</td>
+<td>Gauge pressure; tracer gas and refrigerant at the same 10 bar(g)</td>
+</tr>
+<tr>
+<td>BC-2</td>
+<td>Test method</td>
+<td>N₂/H₂ sniffer method (ambient atmosphere outside, p₂ = 1 atm) as primary; accumulation/vacuum method differences noted separately</td>
+</tr>
+<tr>
+<td>BC-3</td>
+<td>Tracer gas</td>
+<td>5% H₂ + 95% N₂ mixture (H₂ below the 5.7% lower flammability limit, safe)</td>
+</tr>
+<tr>
+<td>BC-4</td>
+<td>Leak-point phase</td>
+<td>Gas-phase and liquid-phase modes computed separately; limit by the min rule</td>
+</tr>
+<tr>
+<td>BC-5</td>
+<td>Temperature</td>
+<td>23 °C (296.15 K)</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="sec2">2 Physical Properties and Data Sources</h2>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Parameter</th>
+<th>Value (23 °C)</th>
+<th>Source</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>M_134a</td>
+<td>R134a molecular weight</td>
+<td>102.03 g/mol</td>
+<td>SDS/REFPROP<sup>[1]</sup></td>
+</tr>
+<tr>
+<td>η_v</td>
+<td>R134a vapour dynamic viscosity</td>
+<td>12.0 µPa·s</td>
+<td>Saturated vapour at 25 °C: 12.1–12.2 µPa·s (REFPROP family)<sup>[2]</sup><sup>[3]</sup>; literature range 11.77–12.2 µPa·s<sup>[4]</sup>; 12.0 µPa·s adopted</td>
+</tr>
+<tr>
+<td>η_l</td>
+<td>R134a saturated liquid viscosity</td>
+<td>195 µPa·s</td>
+<td>0.195 mPa·s at 25 °C (REFPROP family)<sup>[3]</sup>; literature table 190.46 µPa·s<sup>[4]</sup>; 195 µPa·s adopted</td>
+</tr>
+<tr>
+<td>ρ_l</td>
+<td>R134a saturated liquid density</td>
+<td>1207 kg/m³</td>
+<td>1207 kg/m³ at 25 °C (REFPROP family)<sup>[3]</sup></td>
+</tr>
+<tr>
+<td>p_sat</td>
+<td>R134a saturation pressure at 23 °C</td>
+<td>≈ 6.3 bar(abs)</td>
+<td>6.654 bar(abs) at 25 °C<sup>[3]</sup>; 23 °C ≈ 6.3 bar(abs) via Clausius–Clapeyron</td>
+</tr>
+<tr>
+<td>η_N2</td>
+<td>Nitrogen dynamic viscosity</td>
+<td>17.6 µPa·s</td>
+<td>Measured 1.76×10⁻⁵ Pa·s at 20 °C<sup>[5]</sup>; Sutherland 20→23 °C correction (+0.5%) negligible</td>
+</tr>
+<tr>
+<td>η_H2</td>
+<td>Hydrogen dynamic viscosity</td>
+<td>8.9 µPa·s</td>
+<td>Measured 0.89×10⁻⁵ Pa·s at 20 °C<sup>[5]</sup></td>
+</tr>
+<tr>
+<td>M_N2 / M_H2</td>
+<td>N₂/H₂ molecular weight</td>
+<td>28.014 / 2.016 g/mol</td>
+<td>Standard atomic weights (Wilke inputs)</td>
+</tr>
+<tr>
+<td>R</td>
+<td>Molar gas constant</td>
+<td>8.314 J/(mol·K)</td>
+<td>CODATA</td>
+</tr>
+<tr>
+<td>T</td>
+<td>Calculation temperature</td>
+<td>296.15 K</td>
+<td>BC-5 (23 °C)</td>
+</tr>
+<tr>
+<td>η_mix</td>
+<td>5%H₂/95%N₂ mixture viscosity</td>
+<td><strong>17.59 µPa·s</strong></td>
+<td>Computed herein by the Wilke mixing rule (§3.2)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Notes on value selection</strong>:
+1. The 2 K gap between 23 °C and the 25 °C literature data is small: the R134a vapour-viscosity temperature coefficient is about +0.03 µPa·s/K, liquid viscosity about −2%/K — both within the cited literature ranges. Representative values are adopted directly; the residual deviation is already covered by the §7 uncertainty budget (±3–5%). Per-degree interpolation is deliberately avoided to prevent false precision.
+2. The 20→23 °C difference for N₂/H₂ viscosities is &lt;1%, below the Wilke rule's own uncertainty (±2%); the 20 °C values are used as-is.
+3. <strong>Reliability grading</strong>: REFPROP states R134a viscosity uncertainty of 3% (liquid) and 3–5% (vapour)<sup>[6]</sup>; N₂/H₂ viscosities are classical measured values (&lt;1%); the mixture viscosity uses the Wilke semi-empirical mixing rule (well validated on hydrocarbon/hydrogen blends<sup>[7]</sup>).</p>
+<hr />
+<h2 id="sec3">3 Theoretical Model</h2>
+<h3>3.1 Flow-regime criterion (same as the R1234yf calculation book, abbreviated)</h3>
+<p>The equivalent leak-channel diameter is about 1–2 µm; at 10 bar, Kn ≈ 0.005 ≪ 0.01 — the flow in the channel is <strong>continuum viscous (laminar) flow</strong>, so the compressible laminar formula applies. Misusing the molecular-flow formula would overestimate by about 10×.</p>
+<h3>3.2 Tracer-gas viscosity: Wilke mixing rule (worked in full)</h3>
+<p>$$\eta_{mix}=\sum_{i}\frac{x_i\,\eta_i}{\sum_j x_j\,\phi_{ij}},\qquad \phi_{ij}=\frac{\left[1+\left(\eta_i/\eta_j\right)^{1/2}\left(M_j/M_i\right)^{1/4}\right]^2}{\sqrt{8\left(1+M_i/M_j\right)}}$$ </p>
+<p>Inputs: x_H₂ = 0.05, x_N₂ = 0.95, η_H₂ = 8.9 µPa·s, η_N₂ = 17.6 µPa·s, M_H₂ = 2.016, M_N₂ = 28.014 g/mol.</p>
+<p><strong>Step 1: combination parameters φ_ij</strong> (φ_ii ≡ 1):</p>
+<p>$$\phi_{H_2,N_2}=\frac{\left[1+\left(8.9/17.6\right)^{1/2}\left(28.014/2.016\right)^{1/4}\right]^2}{\sqrt{8\left(1+2.016/28.014\right)}}=\frac{[1+0.7110\times1.9318]^2}{\sqrt{8.576}}=\frac{5.633}{2.928}=1.9229$$ </p>
+<p>$$\phi_{N_2,H_2}=\frac{\left[1+\left(17.6/8.9\right)^{1/2}\left(2.016/28.014\right)^{1/4}\right]^2}{\sqrt{8\left(1+28.014/2.016\right)}}=\frac{[1+1.4063\times0.5177]^2}{\sqrt{119.17}}=\frac{2.987}{10.917}=0.2736$$ </p>
+<p><strong>Step 2: denominator terms</strong>:</p>
+<p>$$\sum_j x_j\phi_{H_2,j}=0.05\times1+0.95\times1.9229=1.8768$$ 
+ $$\sum_j x_j\phi_{N_2,j}=0.05\times0.2736+0.95\times1=0.9637$$ </p>
+<p><strong>Step 3: weighted sum</strong>:</p>
+<p>$$\eta_{mix}=\frac{0.05\times8.9}{1.8768}+\frac{0.95\times17.6}{0.9637}=0.2371+17.3501=17.587\ \;\mu\mathrm{Pa\,s}\approx17.59\ \;\mu\mathrm{Pa\,s}$$ </p>
+<p>(Although hydrogen's viscosity is only half that of nitrogen, its molecular weight is 14× lower, and the Wilke weight φ_N₂,H₂ = 0.274 strongly suppresses its contribution — this is the quantitative reason why "5% hydrogen barely changes the viscosity".)</p>
+<figure><img alt="Fig. 3-1 Viscosity of 5%H₂/95%N₂ vs hydrogen content" src="./计算书图1_Wilke混合气粘度曲线.png" /></figure>
+<p><strong>Fig. 3-1</strong>  Mixture viscosity vs H₂ mole fraction computed by the Wilke rule. The working point (5%) and the lower flammability limit (5.7%) lie almost on top of each other and next to the pure-N₂ end; viscosity drops significantly only near 100% H₂. The effect of 5% hydrogen (−0.07%) is far below the viscosity-data uncertainty itself (±2–5%).</p>
+<p><strong>Key physical conclusion</strong>: 5% hydrogen hardly changes the mixture viscosity (only 0.1% below pure N₂) — <strong>the flow behaviour of the N₂/H₂ mixture ≈ pure nitrogen</strong>. Hydrogen only plays the role of a "tracer marker"; all results in this document are expressed as <strong>total mixture leak rates</strong>. Note: hydrogen sensors respond only to the H₂ fraction, so instrument selection must be checked against the manufacturer's actual sensitivity under mixture conditions.</p>
+<h3>3.3 Gas-phase leak mode (equal pressure, ambient outside)</h3>
+<p>Compressible laminar flow  $Q=\dfrac{\pi r^4}{16\eta L}(p_1^2-p_2^2)$ ; for the same channel the geometry factor cancels. Because tracer gas and refrigerant are at the <strong>same pressure</strong>, with atmosphere on both outer sides, the squared-pressure terms are identical and cancel:</p>
+<p>$$\boxed{Q_{N_2/H_2}=Q_{134a}\times\frac{\eta_v}{\eta_{mix}}=\frac{\dot m\,RT}{M_{134a}}\times\frac{\eta_v}{\eta_{mix}}}$$ </p>
+<p><strong>This is the minimal form of equal-pressure conversion: in gas-phase mode, tracer-gas leak rate = refrigerant leak rate × viscosity ratio, independent of pressure.</strong></p>
+<h3>3.4 Liquid-phase leak mode (equal pressure, ambient outside)</h3>
+<p>Incompressible Hagen–Poiseuille combined with compressible laminar flow, eliminating the geometry:</p>
+<p>$$\boxed{Q_{N_2/H_2}=\dot m\times\frac{\eta_l}{2\,\rho_l\,\eta_{mix}}\times\frac{p_1^2-p_2^2}{\Delta p}}$$ </p>
+<p>Flashing reduces the actual liquid flow below the incompressible model, so this expression is a conservative upper bound.</p>
+<h3>3.5 Limit-setting rule (min rule)</h3>
+<p>The leak-point phase cannot be known in advance; the limit must guarantee compliance for any phase:</p>
+<p>$$Q_{limit}=\min\left(Q_{gas},\ Q_{liquid}\right)$$ </p>
+<hr />
+<h2 id="sec4">4 Calculation Procedure</h2>
+<h3>4.1 Step one: refrigerant pV leak rate (= the industry-customary value)</h3>
+<p><strong>Step 1: annual leakage → mass flow rate.</strong> 1 year = 365.25×86400 = 3.15576×10⁷ s:</p>
+<p>$$\dot m=\frac{1\times10^{-3}\ \mathrm{kg}}{3.15576\times10^{7}\ \mathrm{s}}=3.1688\times10^{-11}\ \mathrm{kg/s}$$ </p>
+<p><strong>Step 2: mass flow → molar flow</strong> (M_134a = 0.10203 kg/mol):</p>
+<p>$$\dot n=\frac{3.1688\times10^{-11}}{0.10203}=3.1058\times10^{-10}\ \mathrm{mol/s}$$ </p>
+<p><strong>Step 3: ideal-gas law → pV flow rate</strong> (outlet at atmosphere; Q defined as volumetric flow at outlet pressure):</p>
+<p>$$Q_{134a}=\dot nRT=3.1058\times10^{-10}\times8.314\times296.15=7.647\times10^{-7}\ \mathrm{Pa\,m^3/s}$$ </p>
+<p><strong>Step 4: unit conversion.</strong> 1 mbar = 100 Pa, 1 L = 10⁻³ m³, hence 1 mbar·L/s = 100×10⁻³ = 0.1 Pa·m³/s:</p>
+<p>$$Q_{134a}=7.647\times10^{-7}\ \mathrm{Pa\,m^3/s}\times10=7.65\times10^{-6}\ \mathrm{mbar\,L/s}$$ </p>
+<p><strong>Dimensional check</strong>: [ṁRT/M] = (kg/s)×(J/(mol·K))×K/(kg/mol) → Pa·m³/s ✓ (J = Pa·m³).</p>
+<p><strong>Cross-check against industry practice</strong>: the INFICON automotive leak-testing e-book explicitly states "1 g/a = 7.6·10⁻⁶ mbar·l/s (only for R134a)"<sup>[9]</sup>, consistent with this result. This is the origin of the widely quoted "R134a 1 g/year ≈ 7.7×10⁻⁶ mbar·L/s" — it is the <strong>pV leak rate of the refrigerant medium itself</strong>, before the tracer-medium conversion (step two), and cannot be used directly as the reading or limit of an N₂/H₂ leak detector.</p>
+<h3>4.2 Step two · gas-phase mode (sniffer, equal pressure 10 bar(g))</h3>
+<p>Viscosity ratio (dimensionless conversion factor):</p>
+<p>$$\frac{\eta_v}{\eta_{mix}}=\frac{12.0}{17.587}=0.6823$$ </p>
+<p>$$Q_{N_2/H_2}=7.647\times10^{-6}\times0.6823=\mathbf{5.22\times10^{-6}\ \;\mathrm{mbar\,L/s}}\ (5.2\times10^{-7}\ \;\mathrm{Pa\,m^3/s})$$ </p>
+<p><strong>Physical-direction check</strong>: the R134a molecule is heavier and more polar than N₂, and η_v = 12.0 &lt; η_mix = 17.6, so R134a "flows more easily" through the same channel; the N₂/H₂ pV leak rate corresponding to the same mass leakage is therefore only 68% of the refrigerant's own pV rate — direction is reasonable ✓.</p>
+<h3>4.3 Step two · liquid-phase mode (sniffer, equal pressure 10 bar(g))</h3>
+<p><strong>Pressures must be absolute</strong> (both the ideal-gas law and the laminar-flow formula require absolute pressure): p₁ = 10 + 1.01325 = 11.01325 bar(a), p₂ = 1.01325 bar(a), Δp = p₁ − p₂ = 10 bar (gauge equals differential).</p>
+<p><strong>Step 1: medium/geometry factor</strong>:</p>
+<p>$$\frac{\eta_l}{2\rho_l\eta_{mix}}=\frac{195\times10^{-6}}{2\times1207\times17.587\times10^{-6}}=4.593\times10^{-3}\ \mathrm{m^3/kg}$$ </p>
+<p><strong>Step 2: squared-pressure ratio</strong> (with identity check: (p₁²−p₂²)/(p₁−p₂) ≡ p₁+p₂):</p>
+<p>$$\frac{p_1^2-p_2^2}{\Delta p}=p_1+p_2=11.01325+1.01325=12.0265\ \mathrm{bar}=1.20265\times10^{6}\ \mathrm{Pa}$$ </p>
+<p>Numerical verification: (11.01325² − 1.01325²)/10 = (121.292 − 1.027)/10 = 12.0265 ✓ (consistent with the p₁+p₂ identity).</p>
+<p><strong>Step 3: synthesis</strong>:</p>
+<p>$$Q_{N_2/H_2}=3.1688\times10^{-11}\times4.593\times10^{-3}\times1.20265\times10^{6}=1.750\times10^{-7}\ \mathrm{Pa\,m^3/s}=\mathbf{1.75\times10^{-6}\ \mathrm{mbar\,L/s}}$$ </p>
+<p><strong>Reverse check</strong>: from Q = 1.75×10⁻⁶ mbar·L/s back to ṁ = Q/(4.593×10⁻³×1.20265×10⁶)×0.1 = 3.17×10⁻¹¹ kg/s = 1.00 g/year ✓ (closed loop).</p>
+<h3>4.4 If the vacuum / accumulation method is used (vacuum outside)</h3>
+<p>The squared-pressure terms no longer cancel; multiply by:</p>
+<p>$$\frac{p_1^2}{p_1^2-p_2^2}=\frac{11.01325^2}{11.01325^2-1.01325^2}=\frac{121.292}{120.265}=1.00854$$ </p>
+<p>i.e. gas phase 5.22×1.0085 = 5.26×10⁻⁶, liquid phase 1.75×1.0085 = 1.765×10⁻⁶ mbar·L/s; the difference is &lt;1%, negligible in engineering.</p>
+<h3>4.5 Pressure dependence and crossover pressure</h3>
+<p>Generalising §4.2/§4.3 to any charge pressure p_g (gauge): in gas-phase mode the squared-pressure terms cancel and the equivalent rate is pressure-independent; in liquid-phase mode the ratio ≡ p₁+p₂ = (p_g+2.0265) bar rises linearly with pressure. Setting the two expressions equal (ṁ and η_mix cancel on both sides):  $\dfrac{\eta_l}{2\rho_l}(p_1+p_2)=\dfrac{RT\,\eta_v}{M}$ , giving:</p>
+<p>$$p_1+p_2=\frac{2\rho_l\,\eta_v\,RT}{\eta_l\,M}=\frac{2\times1207\times12.0\times10^{-6}\times8.314\times296.15}{195\times10^{-6}\times0.10203}=3.585\times10^{6}\ \mathrm{Pa}=35.85\ \mathrm{bar}$$ </p>
+<p>$$p_{g,cross}=35.85-2.0265=\mathbf{33.8\ \mathrm{bar(g)}}$$ </p>
+<p>(The analytical solution agrees with the numerical scan in Fig. 4-1.)</p>
+<p>(Dimensional check: [ρηRT/(ηM)] = (kg/m³)(Pa·s)(J/mol)/(Pa·s)(kg/mol) = (kg/m³)(J/kg) = J/m³ = Pa ✓)</p>
+<figure><img alt="Fig. 4-1 Equivalent leak rates vs charge pressure" src="./计算书图2_漏率随压力与交汇点.png" /></figure>
+<p><strong>Fig. 4-1</strong>  Gas-/liquid-phase equivalent leak rates vs charge pressure. The 10 bar(g) working point lies far below the crossover pressure of 33.8 bar(g); the liquid value (1.75×10⁻⁶) is smaller than the gas value (5.22×10⁻⁶), so the min rule takes the liquid value — the general rule that "liquid phase dominates low-pressure refrigerant duties". If the test pressure exceeds 33.8 bar(g), the dominant mode reverses to gas phase and the limit should take the gas-phase value instead.</p>
+<hr />
+<h2 id="sec5">5 Results Summary and Discussion</h2>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Total mixture leak rate (sniffer, 10 bar(g))</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Step one: R134a own pV rate (industry-customary value<sup>[9]</sup>)</td>
+<td>7.6×10⁻⁶ mbar·L/s</td>
+<td>Mass→pV conversion only, no medium correction; cannot serve directly as the N₂/H₂ limit</td>
+</tr>
+<tr>
+<td>Step two · gas-phase leak</td>
+<td><strong>5.2×10⁻⁶ mbar·L/s</strong></td>
+<td>= refrigerant rate × viscosity ratio 0.6823</td>
+</tr>
+<tr>
+<td>Liquid-phase leak</td>
+<td><strong>1.75×10⁻⁶ mbar·L/s</strong></td>
+<td>Conservative upper bound</td>
+</tr>
+<tr>
+<td><strong>Guaranteeing limit (min rule)</strong></td>
+<td><strong>≈ 1.8×10⁻⁶ mbar·L/s</strong></td>
+<td>False-reject band 2.98×</td>
+</tr>
+</tbody>
+</table>
+<figure><img alt="Fig. 5-1 Two-step conversion results" src="./计算书图3_结果汇总.png" /></figure>
+<p><strong>Fig. 5-1</strong>  Summary of the two-step results. Grey bar: industry-customary figure (step one only, no medium correction); blue/red bars: rigorous values; dark-blue bar: guaranteeing limit. The customary figure deviates +47% from the rigorous gas-phase value (lenient direction).</p>
+<p>Discussion:</p>
+<ol>
+<li><strong>Deviation of the customary value</strong>: using 7.6×10⁻⁶ directly as the N₂/H₂ test limit implicitly assumes η_R134a = η_N₂/H₂, a +47% deviation that would pass parts leaking 1.47 g/year in gas phase — lenient, not conservative; suitable only for quick estimation and communication.</li>
+<li><strong>Liquid phase dominates the limit</strong>: the gas/liquid ratio is 2.98×, almost identical to the R1234yf @10 bar duty (2.9×) — 10 bar is far below the crossover pressure; liquid dominance is the general rule for low-pressure refrigerant duties.</li>
+<li><strong>Quantitative comparison with helium testing</strong>: for the same specification, the R1234yf helium gas-phase conversion is 4.0×10⁻⁶ (η ratio 11.46/19.6 = 0.585), while R134a N₂/H₂ gives 5.2×10⁻⁶ (η ratio 12.0/17.59 = 0.682). Same order of magnitude, but the N₂/H₂ method's <strong>sensor-side signal is diluted to 5%</strong>, so the equivalent detection-sensitivity requirement is about 20× more stringent than helium.</li>
+<li><strong>Instrument sensitivity check</strong>: by the engineering convention "instrument resolution ≤ 1/10 of the limit", the leak-test system must stably resolve a <strong>total mixture leak rate of 1.8×10⁻⁷ mbar·L/s</strong>. The sniffer method suffers dilution of the leaking gas by the sniffer flow (typically losing 1–2 orders of magnitude), and the hydrogen sensor responds only to the 5% H₂ fraction — selection must strictly follow the manufacturer's mixture-condition sensitivity specification; switch to the accumulation method for compensation if necessary.</li>
+</ol>
+<hr />
+<h2 id="sec6">6 Leak-Test System Design Recommendations</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Guaranteeing reject limit (total mixture)</td>
+<td><strong>1.8×10⁻⁶ mbar·L/s</strong></td>
+</tr>
+<tr>
+<td>(Alternative) known gas-phase-zone limit</td>
+<td>5.2×10⁻⁶ mbar·L/s</td>
+</tr>
+<tr>
+<td>Minimum detectable leak rate (limit/10)</td>
+<td>1.8×10⁻⁷ mbar·L/s (total mixture)</td>
+</tr>
+<tr>
+<td>Tracer gas charge</td>
+<td>5% H₂ + 95% N₂, 10 bar(g)</td>
+</tr>
+<tr>
+<td>Calibration reference leak</td>
+<td>A 5%H₂/95%N₂ reference leak around 1.8×10⁻⁶ mbar·L/s (calibrated at 23 °C) is recommended, or convert from a He reference leak (×η_He/η_mix = 1.11)</td>
+</tr>
+</tbody>
+</table>
+<p>Additional recommendations:</p>
+<ol>
+<li><strong>Method selection</strong>: at this specification the sniffer signal-to-noise ratio is weak (sniffer dilution + hydrogen sensor responding only to the H₂ fraction); the <strong>accumulation method</strong> (closed hood accumulation with hydrogen-sensor concentration-growth reading) is recommended, improving SNR by 1–2 orders of magnitude;</li>
+<li><strong>False-reject band management</strong>: same three options as Chapter 6 of the R1234yf calculation book (min-rule default / phase demarcation / zone testing); band width 2.98×;</li>
+<li><strong>Temperature correction</strong>: 23 °C reference; ±10 °C drift affects the viscosity ratio by &lt;2%;</li>
+<li><strong>Check against R134a saturation pressure</strong>: saturation pressure at 23 °C is 6.3 bar(abs); at 10 bar(g) the subcooling is about 4.7 bar, so the liquid-phase model holds.</li>
+</ol>
+<hr />
+<h2 id="sec7">7 Uncertainty Analysis</h2>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Magnitude</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>η_v (R134a vapour)</td>
+<td>±3–5% (REFPROP statement)<sup>[6]</sup></td>
+<td>Gas phase ±5%</td>
+</tr>
+<tr>
+<td>η_l, ρ_l (liquid)</td>
+<td>±3% (REFPROP liquid viscosity)</td>
+<td>Liquid phase ±4%</td>
+</tr>
+<tr>
+<td>η_mix (Wilke rule)</td>
+<td>±2%</td>
+<td>All modes ±2%</td>
+</tr>
+<tr>
+<td>Temperature (23±5 °C)</td>
+<td>&lt;2%</td>
+<td>Negligible</td>
+</tr>
+<tr>
+<td>Flashing effect (liquid)</td>
+<td>One-sided, conservative</td>
+<td>Liquid value is an upper bound</td>
+</tr>
+<tr>
+<td><strong>Phase uncertainty (limit direction)</strong></td>
+<td>Systematic, 2.98×</td>
+<td><strong>Dominant factor</strong>, covered by the min rule</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Combined expanded uncertainty (k=2): gas phase ≈ ±6%, liquid phase ≈ ±8%.</strong> A ≥20% engineering margin on the limit is recommended.</p>
+<hr />
+<h2 id="sec8">8 Conclusions: The Theoretical Position of the Industry-Customary Value and Its Usability Boundary</h2>
+<h3>8.1 The numerical lineage (logic of all results in this document)</h3>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>Value (mbar·L/s)</th>
+<th>Physical meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>① Industry-customary value (INFICON figure<sup>[9]</sup>)</td>
+<td>7.6×10⁻⁶ (= 7.6×10⁻⁷ Pa·m³/s)</td>
+<td>The <strong>refrigerant's own</strong> pV leak rate: only the "mass → pV" step-one conversion</td>
+</tr>
+<tr>
+<td>② Rigorous value · gas phase</td>
+<td>5.22×10⁻⁶</td>
+<td>① × viscosity ratio 0.6823 (step-two medium conversion)</td>
+</tr>
+<tr>
+<td>③ Rigorous value · liquid phase</td>
+<td>1.75×10⁻⁶</td>
+<td>Conservative upper bound</td>
+</tr>
+<tr>
+<td>④ Guaranteeing limit (min rule)</td>
+<td>≈ 1.8×10⁻⁶</td>
+<td>Design limit when the phase is unknowable</td>
+</tr>
+</tbody>
+</table>
+<h3>8.2 What is wrong with the INFICON figure</h3>
+<p>"R134a 1 g/year = N₂/H₂ leak test 7.6×10⁻⁶ mbar·L/s" — the most widely circulated figure in the industry — <strong>is, strictly speaking, not correct: it completes only half of the conversion</strong>. After converting the annual refrigerant mass loss into the refrigerant's own pV leak rate (step one), it takes that number directly as the N₂/H₂ leak rate, omitting the step-two medium conversion. The implicit assumption is η_R134a = η_N₂/H₂, whereas in fact 12.0 ≠ 17.6 µPa·s — a 47% difference. Used directly as the N₂/H₂ test limit, 7.6×10⁻⁶ would pass parts leaking up to 1.47 g/year in gas phase — <strong>the deviation is lenient, not conservative</strong>.</p>
+<h3>8.3 Why this "wrong number" has been used for decades without causing problems</h3>
+<p>Not because the conversion happens to be right, but because <strong>the margin structure of the specification absorbs the conversion error entirely</strong>, with three layers of buffering:</p>
+<ol>
+<li><strong>First layer: the specification itself is set very high.</strong> 1 g/year is the customary industry specification, while the functional-failure threshold of a refrigerant system (the cumulative leakage needed for noticeable capacity loss) is of order ~150 g/year — about <strong>two orders of magnitude</strong> of margin. A +47% limit deviation is a rounding error against two orders of magnitude.</li>
+<li><strong>Second layer: production leak rates are bimodally distributed.</strong> Sound parts cluster around ~10⁻¹⁰ mbar·L/s, defective parts around ~10⁻² mbar·L/s, with a "no-man's land" of about 8 orders of magnitude in between. Whether the limit sits at 1.8×10⁻⁶ or 7.6×10⁻⁶, it falls inside that gap — <strong>the accept/reject outcome for any real part is identical</strong>.</li>
+<li><strong>Third layer: even a false pass is harmless.</strong> The worst-case boundary part released under 7.6×10⁻⁶ leaks 1.47 g/year — still two orders of magnitude below the functional threshold, with no practical consequence within the warranty period.</li>
+</ol>
+<p>In other words: <strong>the customary value is a "wrong but harmless" number</strong> — it uses only half the theory, yet is thoroughly protected by the excess margin of the specification.</p>
+<h3>8.4 When the rigorous values must be used instead</h3>
+<p>Margins are not infinitely thick. In the following situations the buffer thins and the +47% deviation of the customary figure can have real consequences; the rigorous values (②③④) of this document should be used:</p>
+<ul>
+<li><strong>Certification, traceability, and customer audits</strong>: the limit must withstand theoretical review; the step-one figure cannot justify itself;</li>
+<li><strong>Tightened specifications or new refrigerants</strong>: e.g. low-charge R1234yf systems and A2L mildly flammable refrigerants (where the cabin concentration limit becomes the real bottom line) compress the margin from two orders of magnitude to below one — a ±50% limit-setting error is no longer negligible;</li>
+<li><strong>Limit setting in liquid-dominated duties</strong>: at 10 bar(g) the rigorous liquid value (1.75×10⁻⁶) is 4.3× tighter than the customary figure; when the phase is unknowable, the min rule applies — otherwise there is a 4.3× lenient false-pass risk for liquid-phase leakers.</li>
+</ul>
+<h3>8.5 One-sentence conclusion</h3>
+<p><strong>7.6×10⁻⁷ Pa·m³/s is the communication figure; 1.8×10⁻⁶ mbar·L/s (min rule) is the design limit</strong>: the former comes from a half-completed conversion and has remained harmless only thanks to the specification's margin; the latter is the rigorous value from the complete two-step conversion with phase analysis. Use the former in everyday communication; use the latter for leak-test system design and audit documentation.</p>
+<hr />
+<h2 id="sec9">Appendix A Symbols</h2>
+<table>
+<thead>
+<tr>
+<th>Symbol</th>
+<th>Meaning</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q</td>
+<td>Leak rate (pV flow rate)</td>
+<td>Pa·m³/s or mbar·L/s</td>
+</tr>
+<tr>
+<td>ṁ, ṅ</td>
+<td>Mass / molar flow rate</td>
+<td>kg/s, mol/s</td>
+</tr>
+<tr>
+<td>η_v, η_l, η_mix</td>
+<td>Vapour / liquid / mixture viscosity</td>
+<td>Pa·s</td>
+</tr>
+<tr>
+<td>ρ_l</td>
+<td>Liquid density</td>
+<td>kg/m³</td>
+</tr>
+<tr>
+<td>x_i, M_i</td>
+<td>Mole fraction / molecular weight</td>
+<td>—, g/mol</td>
+</tr>
+<tr>
+<td>p₁, p₂, Δp</td>
+<td>Inlet / outlet absolute pressure / differential</td>
+<td>Pa</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sec10">Appendix B References</h2>
+<p><strong>1.</strong> National Refrigerants, Inc. Safety Data Sheet R-134a: Molecular Weight 102. https://refrigerants.com/wp-content/uploads/2019/12/SDS-R134a.pdf
+<strong>2.</strong> Viscosity of R134a in the Vapor Phase, Near Saturation (298.06 K: 12.2 µPa·s; 303.32 K: 12.4 µPa·s). https://core.ac.uk/download/pdf/61420255.pdf
+<strong>3.</strong> RSL/REFPROP v10 data sheet: R134a Vapour Viscosity (25°C &amp; 1 bara) 0.0121 cP; Liquid Viscosity (25°C) 0.1949 cP; Liquid Density (25°C) 1207 kg/m³; Vapour Pressure (25°C) 6.654 bara. https://refsols.com/RS-20.html
+<strong>4.</strong> UPC literature data sheet: R134a Liquid Viscosity 190.46 µPa·s, Vapor 11.77 µPa·s (approx. 25 °C). https://upcommons.upc.edu/bitstreams/6f05d6e9-1996-4f46-8ebf-95e776fc4bd2/download
+<strong>5.</strong> Effect of the Physical Properties of Testing Gases on the Leak Test Results of Polyethylene Pipe Assemblies. <em>Applied Sciences</em>, 2026, 16(14): 7219. (Table 1: N₂ 1.76×10⁻⁵ Pa·s, H₂ 0.89×10⁻⁵ Pa·s @20 °C) https://www.mdpi.com/2076-3417/16/14/7219
+<strong>6.</strong> Etude des propriétés thermodynamiques des nouveaux fluides frigorigènes. Ph.D. Thesis, 2016. (REFPROP 9.0 statement: R134a viscosity uncertainty 3% liquid, 3–5% vapour) https://pastel.hal.science/tel-01804996/file/2016PSLEM089_archivage.pdf
+<strong>7.</strong> Viscosity of Hydrogen-Enriched Natural Gas Blends (xH2 = 0, 5, 20, 50, and 80%) from 223 to 323 K and up to 30 MPa. <em>J. Chem. Eng. Data</em>, 2025. https://pubs.acs.org/doi/10.1021/acs.jced.5c00401
+<strong>9.</strong> INFICON. Leak Testing in the Automotive Industry (e-book): "1 g/a = 7.6·10⁻⁶ mbar·l/s (only for R134a)". https://www.inficon.com/media/7992/download/-Portals-0-PDF-ebooks-INFICON_E-Book_LeakTestingInTheAutomotiveIndustry_mika00en-b_1604.pdf
+<strong>10.</strong> Pfeiffer Vacuum. Mass Loss Rates and Volume Leak Rates in Laminar or Molecular Flow Regime (two-step conversion: mass flow → medium pV leak rate → medium conversion by flow regime; take the unfavourable case when the regime is unknown). https://www.pfeiffer-vacuum.com/mx/en/knowledge/leak-detection/calculations/mass-loss-rates-and-volume-leakage-rates-in-laminar-or-molecular-flow-regime.html
+<strong>8.</strong> RM-CAL-2026-0730, <em>R1234yf Refrigerant Annual Leakage ↔ Helium Leak Rate Equivalence Calculation</em>. Shanghai Realmeter Instrument Co., Ltd., 2026-07-30. (Same framework for flow-regime criterion, min rule, and crossover pressure.)</p><script>renderMathInElement(document.body,{delimiters:[{left:'$$',right:'$$',display:true},{left:'$',right:'$',display:false}]});</script></body></html>
